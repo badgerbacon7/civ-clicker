@@ -3162,8 +3162,8 @@ function checkResourceLimits () {
 function gameLoop () {
 	//debugging - mark beginning of loop execution
 	//var start = new Date().getTime();
-	if (civData.foodstock.owned == 0 || civData.woodstock.owned == 0 || civData.stonestock.owned == 0) {
-		civData.foodstock.owned = 1;
+	if (civData.barn.owned == 0 || civData.woodstock.owned == 0 || civData.stonestock.owned == 0) {
+		civData.barn.owned = 1;
 		civData.woodstock.owned = 1;
 		civData.stonestock.owned = 1;
 	}
