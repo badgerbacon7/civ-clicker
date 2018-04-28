@@ -3175,6 +3175,16 @@ function manage () {
 		doPurchase("woodcutter",-1);
 		doPurchase("farmer",1);
 	}
+	
+	// auto mine
+	if (civData.stone.owned != civData.stone.limit && civData.wood.owned == civData.wood.limit && civData.food.net/calcWorkerCost(1) > 1) {
+		doPurchase("farmer",-1);
+		doPurchase("miner",1);
+	}
+	if (civData.stone.owned == civData.stone.limit && civData.miner.owned > 0) {
+		doPurchase("woodcutter",-1);
+		doPurchase("farmer",1);
+	}
 }
 	
 
