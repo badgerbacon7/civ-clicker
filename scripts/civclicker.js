@@ -3162,7 +3162,7 @@ function checkResourceLimits () {
 function manage () {
 	if (civData.food.owned == civData.food.limit && population.current < population.limit) {
 		document.getElementById("newSpawnJobSelection").value = "farmer";
-		spawn(civData.food.net/Math.round(calcWorkerCost(1)));
+		spawn(Math.max(Math.round(civData.food.net/calcWorkerCost(1)),1));
 	}
 }
 	
