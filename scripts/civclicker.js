@@ -3170,7 +3170,7 @@ function manage () {
 	if (civData.wood.owned != civData.wood.limit && civData.food.net/calcWorkerCost(1) > 1) {
 		doPurchase("farmer",-1);
 		doPurchase("woodcutter",1);
-	)
+	}
 	if (civData.wood.owned == civData.wood.limit && civData.woodcutter.owned > 0) {
 		doPurchase("woodcutter",-1);
 		doPurchase("farmer",1);
