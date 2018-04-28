@@ -3182,8 +3182,12 @@ function manage () {
 		doPurchase("miner",1);
 	}
 	if (civData.stone.owned == civData.stone.limit && civData.miner.owned > 0) {
-		doPurchase("woodcutter",-1);
+		doPurchase("miner",-1);
 		doPurchase("farmer",1);
+	}
+	if (civData.wood.owned != civData.wood.limit && civData.miner.owned > 0) {
+		doPurchase("miner",-1);
+		doPurchase("woodcutter",1);
 	}
 }
 	
