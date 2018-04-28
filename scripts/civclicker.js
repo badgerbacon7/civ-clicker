@@ -3160,9 +3160,20 @@ function checkResourceLimits () {
 }
 
 function manage () {
+	// auto populate
 	if (civData.food.owned == civData.food.limit && population.current < population.limit) {
 		document.getElementById("newSpawnJobSelection").value = "farmer";
 		spawn(Math.max(Math.round(civData.food.net/calcWorkerCost(1)),1));
+	}
+	
+	// auto woodcut
+	if (civData.wood.owned != civData.wood.limit && civData.food.net/calcWorkerCost(1) > 1) {
+		doPurchase("farmer",-1);
+		doPurchase("woodcutter",1);
+	)
+	if (civData.wood.owned == civData.wood.limit && civData.woodcutter.owned > 0) {
+		doPurchase("woodcutter",-1);
+		doPurchase("farmer",1);
 	}
 }
 	
