@@ -53,8 +53,8 @@ var PATIENT_LIST = [
 
 // Declare variables here so they can be referenced later.  
 var curCiv = {
-	civName: "Woodstock",
-	rulerName: "Orteil",
+	civName: "Ur",
+	rulerName: "Ra",
 
 	zombie: { owned:0 },
 	grave: { owned:0 },
