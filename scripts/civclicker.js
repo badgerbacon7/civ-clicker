@@ -3159,6 +3159,14 @@ function checkResourceLimits () {
 	});
 }
 
+function manage () {
+	if (civData.food.owned == civData.food.limit && population.current < population.limit) {
+		document.getElementById("newSpawnJobSelection").value = "farmer";
+		spawn(1);
+	}
+}
+	
+
 function gameLoop () {
 	//debugging - mark beginning of loop execution
 	//var start = new Date().getTime();
@@ -3212,6 +3220,8 @@ function gameLoop () {
 	
 	updateResourceTotals(); //This is the point where the page is updated with new resource totals
 	testAchievements();
+	
+	manage();
 	
 	//Data changes should be done; now update the UI.
 	updateAll();
