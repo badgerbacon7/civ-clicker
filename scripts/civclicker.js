@@ -3157,39 +3157,7 @@ function checkResourceLimits () {
 			resource.owned = resource.limit; 
 		} 
 	});
-}
-
-function manage () {
-	// auto populate
-	if (civData.food.owned == civData.food.limit && population.current < population.limit) {
-		document.getElementById("newSpawnJobSelection").value = "farmer";
-		spawn(Math.max(Math.round(civData.food.net/calcWorkerCost(1)),1));
-	}
-	
-	// auto woodcut
-	if (civData.wood.owned != civData.wood.limit && civData.food.net/calcWorkerCost(1) > 1) {
-		doPurchase("farmer",-1);
-		doPurchase("woodcutter",1);
-	}
-	if (civData.wood.owned == civData.wood.limit && civData.woodcutter.owned > 0) {
-		doPurchase("woodcutter",-1);
-		doPurchase("farmer",1);
-	}
-	
-	// auto mine
-	if (civData.stone.owned != civData.stone.limit && civData.wood.owned == civData.wood.limit && civData.food.net/calcWorkerCost(1) > 1) {
-		doPurchase("farmer",-1);
-		doPurchase("miner",1);
-	}
-	if (civData.wood.owned != civData.wood.limit && civData.miner.owned > 0) {
-		doPurchase("miner",-1);
-		doPurchase("woodcutter",1);
-	} else if (civData.stone.owned == civData.stone.limit && civData.miner.owned > 0) {
-		doPurchase("miner",-1);
-		doPurchase("farmer",1);
-	}
-}
-	
+}	
 
 function gameLoop () {
 	//debugging - mark beginning of loop execution
@@ -3244,8 +3212,6 @@ function gameLoop () {
 	
 	updateResourceTotals(); //This is the point where the page is updated with new resource totals
 	testAchievements();
-	
-	manage();
 	
 	//Data changes should be done; now update the UI.
 	updateAll();
