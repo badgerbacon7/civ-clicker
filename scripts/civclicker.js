@@ -3361,11 +3361,66 @@ setup.game = function () {
 	setDefaultSettings();
 };
 
+var gameInterval = 100;
+
 setup.loop = function () {
-	// This sets up the main game loop, which is scheduled to execute once per second.
-	console.log("Setting up Main Loop");
-	gameLoop();
-	loopTimer = window.setInterval(gameLoop, 1000); //updates once per second (1000 milliseconds)
+	// This sets up the main game loop, which is scheduled to execute once per interval (milliseconds).
+    var gameInterval = 100;
+    console.log("Setting up Main Loop");
+    gameLoop();
+    loopTimer = window.setInterval(gameLoop, gameInterval); //updates once per interval (milliseconds)
+
+    var mgr = {
+        resources: ["food", "wood", "stone"],
+        upgrades: [ "skinning", "harvesting", "prospecting", "masonry", "domestication", "ploughshares", "irrigation", "construction", "granaries"],
+        timer: {},
+        targets: [
+            {},
+        ],
+    };
+    mgr.increment = function () {
+        mgr.resources.forEach(function (r) {
+            increment(r);
+        });
+    }
+    mgr.upgrade = function () {
+        mgr.upgrades.forEach(function (u) {
+            if (!(civData[u].owned) && canPurchase(civData[u])) {
+                doPurchase(u, 1);
+            }
+        });
+    }
+    mgr.populate = function () {
+        if (population.limit == population.current) {
+            if (canPurchase(civData["cottage"])) {
+                doPurchase("cottage", 1);
+            }
+        } else if (civData.food.owned > civData.food.limit / 2) {
+            document.getElementById("newSpawnJobSelection").value = "farmer";
+            spawn(1);
+        }
+        if (civData.food.net > 5) {
+            if (civData.food.net > (civData.wood.net)) {
+                doPurchase("farmer", -1);
+                doPurchase("woodcutter", 1);
+            }
+            if (civData.food.net > (civData.stone.net)) {
+                doPurchase("farmer", -1);
+                doPurchase("miner", 1);
+            }
+        }
+    }
+    mgr.do = function () {
+        mgr.increment();
+        mgr.upgrade();
+
+
+
+        mgr.populate();
+    }
+    mgr.timer = window.setInterval(mgr.do, gameInterval);
+    window.mgr = mgr;
+
 };
 
 setup.all();
